@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13 # 구형 프로젝트 호환성을 위해 최신 버전 대신 13 할당
+    runs-on: macos-14 # 구형 프로젝트 호환성을 위해 최신 버전 대신 13 할당
 
     steps:
       - name: Checkout Repository
