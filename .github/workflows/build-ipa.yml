@@ -15,14 +15,14 @@ jobs:
         run: |
           xcodebuild clean build \
             -project "iMAME4tvOS.xcodeproj" \
-            -scheme "iMAME4tvOS" \
+            -target "iMAME4tvOS" \
             -configuration Release \
             -sdk appletvos \
             -derivedDataPath build \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
-
+            
       - name: Package into IPA
         run: |
           mkdir -p Payload
