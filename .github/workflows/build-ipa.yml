@@ -1,0 +1,36 @@
+name: Build MameAppleTV Unsigned IPA
+
+on:
+  workflow_dispatch: # 수동으로 빌드를 실행할 수 있게 하는 트리거
+
+jobs:
+  build:
+    runs-on: macos-13 # 구형 프로젝트 호환성을 위해 최신 버전 대신 13 할당
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Unsigned App
+        run: |
+          xcodebuild clean build \
+            -project "iMAME4tvOS.xcodeproj" \
+            -scheme "iMAME4tvOS" \
+            -configuration Release \
+            -sdk appletvos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Package into IPA
+        run: |
+          mkdir -p Payload
+          mv build/Build/Products/Release-appletvos/*.app Payload/
+          zip -r MameAppleTV.ipa Payload
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MameAppleTV-Unsigned-IPA
+          path: MameAppleTV.ipa
