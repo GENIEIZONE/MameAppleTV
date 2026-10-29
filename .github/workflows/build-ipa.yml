@@ -20,6 +20,7 @@ jobs:
           touch res/roms/pacman.zip
           touch res/roms/galaga.zip
           touch res/roms/dkong.zip
+          touch res/roms/1942.zip
           
           xcodebuild clean build \
             -project "iMAME4tvOS.xcodeproj" \
