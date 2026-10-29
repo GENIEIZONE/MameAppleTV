@@ -13,9 +13,13 @@ jobs:
 
       - name: Build Unsigned App
         run: |
-          # 누락된 롬파일을 가짜로 만들어 Xcode 파일 검사 우회
+          # 프로젝트 설정에 하드코딩된 모든 누락 롬파일을 가짜로 일괄 생성
           mkdir -p res/roms
           touch res/roms/timeplt.zip
+          touch res/roms/raiden.zip
+          touch res/roms/pacman.zip
+          touch res/roms/galaga.zip
+          touch res/roms/dkong.zip
           
           xcodebuild clean build \
             -project "iMAME4tvOS.xcodeproj" \
@@ -27,7 +31,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             SWIFT_VERSION=5.0 \
             TVOS_DEPLOYMENT_TARGET=12.0
-
+            
       - name: Package into IPA
         run: |
           mkdir -p Payload
